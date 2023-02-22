@@ -9,7 +9,6 @@ import { ProductModel } from './models/product.model'
 
 @Injectable()
 export class ProductSqlRepository implements IProductRepository {
-	
 //#region constructor
 	public constructor(private readonly _entityManager: EntityManager, private readonly _mapper: ProductSqlMapper) {}
 	//#region private methods
@@ -24,8 +23,6 @@ export class ProductSqlRepository implements IProductRepository {
   findByProduct(_input: string): Promise<Result<Product>> {
     throw new Error('Method not implemented.')
   }
-	//#endregion
-	
 	async save(input: Product): Promise<Result<Product>> {
 		const persistence = this._mapper.toPersistence(input)
 		await this._entityManager.transaction(async (em) => {

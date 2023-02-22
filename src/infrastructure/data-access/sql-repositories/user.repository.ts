@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Result, UniqueEntityID } from '@softobiz-df/shared-lib';
 import { EntityManager, IsNull, Not } from 'typeorm'
 import { User } from 'src/domain/user/user';
+
 import { IUserRepository } from '../irepositories/iuser.repository';
 import { UserSqlMapper } from './mappers/user.mapper'
 import { UserModel } from './models/user.model'
@@ -11,7 +12,7 @@ import { UserModel } from './models/user.model'
 export class UserSqlRepository implements IUserRepository {
 	
 //#region constructor
-	public constructor(private readonly _entityManager: EntityManager, private readonly _mapper: UserSqlMapper) {}
+	public constructor(private readonly _entityManager: EntityManager, private readonly _mapper: UserSqlMapper,) {}
 	//#region private methods
 	
 	private async getById(uuid: string) {
@@ -36,6 +37,21 @@ export class UserSqlRepository implements IUserRepository {
 		})
 		return Result.ok(input)
 	}
+
+	async editUserById(_id: string, input: User): Promise<Result<User>> {
+		 const persistence=this._mapper.toPersistence(input)
+		// console.log(_id);
+		// 	await this._User.findByIdAndUpdate(_id, {name:input.props.name})
+		await this._entityManager.getRepository('User')
+		.createQueryBuilder()
+		.update(User)
+		.set({ name: "Timber"})
+		.where("id = :id", { id: 1 })
+		.execute()
+		return Result.ok(input)
+	}
+
+
 	exists(input: User): Promise<Result<boolean>> {
 		throw new Error('Method not implemented.')
 	}
@@ -50,6 +66,5 @@ export class UserSqlRepository implements IUserRepository {
 			return Result.ok()
 		}
 	}
-	
 
 }

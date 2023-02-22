@@ -233,7 +233,7 @@
 ## Generate new sql-repositories
 * To generate a new sql-repositories use command
        ```
-         yo softobiz-ms:sql-repositories <name> [options]
+                                     <name> [options]
        ```
   ### Options:
 

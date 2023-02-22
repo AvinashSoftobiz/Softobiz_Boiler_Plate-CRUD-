@@ -22,5 +22,6 @@ export class UserCreateCommandHandler implements IRequestHandler<UserCreateComma
 
 		return Result.ok(new RecordIdModel({ id: userValue.id.toString() }))
 	}
-
 	}
+
+	

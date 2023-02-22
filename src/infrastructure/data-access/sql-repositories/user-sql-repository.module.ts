@@ -5,7 +5,8 @@ import { UserSqlRepository } from './user.repository';
 
 
 @Module({
-	providers: [UserSqlMapper,  UserSqlRepositoryModule, { provide: IUserRepository, useClass: UserSqlRepository }],
+	providers: [UserSqlMapper,  UserSqlRepositoryModule,
+		 { provide: IUserRepository, useClass: UserSqlRepository }],
 	exports: [{ provide: IUserRepository, useClass: UserSqlRepository }],
 })
 export class UserSqlRepositoryModule {}

@@ -6,14 +6,6 @@ interface UserProps {
 }
 export class User extends AggregateRoot<UserProps> {
 
-  //#region member variables
-	//#endregion
-
-	//#region constants
-	//#endregion
-
-	//#region properties
-	//#endregion
 
 	//#region private methods
 	private constructor(props: UserProps, id?: UniqueEntityID) {
