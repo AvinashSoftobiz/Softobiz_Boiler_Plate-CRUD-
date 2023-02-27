@@ -13,7 +13,9 @@ export class UserCreateCommandHandler implements IRequestHandler<UserCreateComma
 	async handle(commandOrQuery: UserCreateCommand, token?: string): Promise<UserCreateResponseType> {
 
 	const user = User.create({
-			name: commandOrQuery.name,
+			firstName: commandOrQuery.firstName,
+			lastName:commandOrQuery.lastName,
+			email:commandOrQuery.email,
 		})
 		if (user.isFailure) return Result.fail(user.errorValue())
 

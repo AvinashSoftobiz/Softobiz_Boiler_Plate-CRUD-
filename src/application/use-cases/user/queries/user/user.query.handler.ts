@@ -19,8 +19,9 @@ export class GetUserQueryHandler implements IRequestHandler<GetUserQuery, GetUse
 		if (user.isFailure) return Result.fail(new UserErrors.UserNotFound())
 		const userValue = user.getValue()
 		const userDto = new UserDto({
-			name: userValue.props.name,
-		
+			firstName: userValue.props.firstName,
+			lastName: userValue.props.lastName,
+			email:userValue.props.email
 		
 		})
 		return Result.ok(userDto)

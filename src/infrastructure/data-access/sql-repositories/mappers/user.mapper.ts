@@ -11,7 +11,9 @@ export class  UserSqlMapper implements IMapper {
 	toDomain(raw:  UserModel): User {
 		return  User.create(
 			{
-				name: raw.name
+				firstName: raw.firstName,
+				lastName:raw.lastName,
+				email:raw.email,
 				
 			},
 			new UniqueEntityID(raw.uuid),
@@ -24,7 +26,9 @@ export class  UserSqlMapper implements IMapper {
 			curEntity = new UserModel()
 		}
 		curEntity.uuid = input.id.toString()
-		curEntity.name = input.props.name;
+		curEntity.firstName = input.props.firstName;
+		curEntity.lastName = input.props.lastName;
+		curEntity.email = input.props.email;
 		
 		//@todo:: improve mapping
 		return curEntity;

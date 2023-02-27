@@ -8,7 +8,13 @@ import { ApiProperty } from '@nestjs/swagger';
 export class UserCreateCommand implements IRequest<UserCreateResponseType> {
 	@IsOptional()
 	@ApiProperty()
-	public name: string
+	public firstName: string
+	@IsOptional()
+	@ApiProperty()
+	public lastName: string
+	@IsOptional()
+	@ApiProperty()
+	public email: string
   
 	public constructor(init?: Partial<UserCreateCommand>) {
 		Object.assign(this, init)

@@ -1,7 +1,9 @@
 import { AggregateRoot,eDataSource, GenericAppError, Result,  UniqueEntityID } from '@softobiz-df/shared-lib';
 
 interface UserProps {
-	name: string
+	firstName: string
+	lastName: string
+	email:string
 
 }
 export class User extends AggregateRoot<UserProps> {
@@ -14,20 +16,21 @@ export class User extends AggregateRoot<UserProps> {
 	//#endregion
 
 	//#region private setters
-	private setName(name: string) {
-		this._props.name = name
+	private setName(firstName: string, lastName: string, email:string) {
+		this._props.firstName = firstName
+		this._props.lastName=lastName
+		this._props.email=email
 		return Result.ok(this)
 	}
   //#endregion
-
 	//#region public methods
 	public static create(props: UserProps, id?: UniqueEntityID, dataSource?: eDataSource) {
 		if (dataSource === eDataSource.STORAGE) return Result.ok(new  User(props, id))
 		const  user = new  User(Object.create(null), id)
 		const validationQueue = [
-			user.setName(props.name),
 			
-
+			user.setName(props.firstName,props.lastName,props.email),
+			
 		]
 		const combinedResult = Result.combine(validationQueue)
 		if (combinedResult.isFailure) return Result.fail<User>(new GenericAppError.DomainError(combinedResult.errorValue()))

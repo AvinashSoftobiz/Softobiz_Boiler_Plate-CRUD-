@@ -20,16 +20,16 @@ export class UserController {
 	}
 
 	@ApiQuery({ name: 'id', description: 'Gets the Action id' })
+	
 	@Get()
 	async getUser(@Query("id") id): Promise<GetUserReponseType> {
 		return this._mediator.send<GetUserReponseType>(new GetUserQuery({ id }))
 	}
 	// update
 	@Put()
-	async editUserById(@Param('id') id: string, @Body() payload: UpdateUserCommand): Promise<UpdateUserResponseType> {
+	async updateUser(@Query('id') _id: string, @Body() payload: UpdateUserCommand): Promise<UpdateUserResponseType> {
 		return this._mediator.send<UpdateUserResponseType>(new UpdateUserCommand(payload))
 	}
-
 
 	@Get("health")
 	async getHealth(): Promise<Result<string>> {

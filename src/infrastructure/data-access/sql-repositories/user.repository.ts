@@ -31,24 +31,15 @@ export class UserSqlRepository implements IUserRepository {
 	
 
 	async save(input: User): Promise<Result<User>> {
+		try{
 		const persistence = this._mapper.toPersistence(input)
 		await this._entityManager.transaction(async (em) => {
 			await em.save(persistence)
 		})
 		return Result.ok(input)
+	}catch(err){
+		return Result.fail(err)
 	}
-
-	async editUserById(_id: string, input: User): Promise<Result<User>> {
-		 const persistence=this._mapper.toPersistence(input)
-		// console.log(_id);
-		// 	await this._User.findByIdAndUpdate(_id, {name:input.props.name})
-		await this._entityManager.getRepository('User')
-		.createQueryBuilder()
-		.update(User)
-		.set({ name: "Timber"})
-		.where("id = :id", { id: 1 })
-		.execute()
-		return Result.ok(input)
 	}
 
 
@@ -58,6 +49,8 @@ export class UserSqlRepository implements IUserRepository {
 	remove(input: UniqueEntityID): Promise<Result<void>> {
 		throw new Error('Method not implemented.')
 	}
+
+
 	async findById(input: UniqueEntityID): Promise<Result<User>> {
 		const userEntity = await this.getById(input.toString())
 		if (userEntity) {

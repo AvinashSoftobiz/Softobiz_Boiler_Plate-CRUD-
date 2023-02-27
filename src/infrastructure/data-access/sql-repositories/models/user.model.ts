@@ -2,7 +2,7 @@ import { Column,Entity} from 'typeorm';
 import { BaseModel } from './base.model';
 
 
-@Entity({ name: 'User' })
+@Entity({ name: 'Users' })
 
 export class UserModel extends BaseModel {
 
@@ -14,6 +14,11 @@ export class UserModel extends BaseModel {
 	//#endregion
 
 	@Column()
-	public name: string
+	public firstName: string
 
+	@Column()
+	public lastName: string
+
+	@Column()
+	public email: string
 }
