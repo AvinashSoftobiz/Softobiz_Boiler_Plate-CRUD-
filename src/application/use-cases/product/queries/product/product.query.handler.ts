@@ -19,9 +19,9 @@ export class GetProductQueryHandler implements IRequestHandler<GetProductQuery, 
 		if (product.isFailure) return Result.fail(new ProductErrors.ProductNotFound())
 		const productValue = product.getValue()
 		const productDto = new ProductDto({
-			name: productValue.props.name,
-		
-		
+			productName: productValue.props.productName,
+			companyName:productValue.props.companyName,
+			description: productValue.props.description,		
 		})
 		return Result.ok(productDto)
 	}

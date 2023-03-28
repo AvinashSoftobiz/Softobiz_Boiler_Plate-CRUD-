@@ -10,10 +10,12 @@ export class UpdateUserCommandHandler implements IRequestHandler<UpdateUserComma
 	private readonly _logger = AppLoggerService.getLogger(UpdateUserCommandHandler)
 
 	constructor(@Inject(IUserRepository) private readonly _userRepo: IUserRepository) { }
+	
 	async handle(commandOrQuery: UpdateUserCommand, token?: string): Promise<UpdateUserResponseType> {
 		const users: Result<User> = await this._userRepo.findById(commandOrQuery.id)
 		const userValue = users.getValue()
- console.log(userValue);
+ 
+		console.log(userValue);
  
 
 		const updateUser = User.create({
@@ -21,6 +23,7 @@ export class UpdateUserCommandHandler implements IRequestHandler<UpdateUserComma
 			lastName: '',
 			email: ''
 		},userValue.id)
+		
 		
 		if (updateUser.isFailure) return Result.fail(updateUser.errorValue())
 

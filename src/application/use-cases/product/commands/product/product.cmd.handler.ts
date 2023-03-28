@@ -13,7 +13,9 @@ export class ProductCreateCommandHandler implements IRequestHandler<ProductCreat
 	async handle(commandOrQuery: ProductCreateCommand, token?: string): Promise<ProductCreateResponseType> {
 
 	const product = Product.create({
-			name: commandOrQuery.name,
+			productName: commandOrQuery.productName,
+			companyName:commandOrQuery.companyName,
+			description:commandOrQuery.description,
 		})
 		if (product.isFailure) return Result.fail(product.errorValue())
 

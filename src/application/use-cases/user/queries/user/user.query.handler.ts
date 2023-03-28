@@ -18,11 +18,11 @@ export class GetUserQueryHandler implements IRequestHandler<GetUserQuery, GetUse
 		const user: Result<User> = await this._userRepo.findById(new UniqueEntityID(query.id))
 		if (user.isFailure) return Result.fail(new UserErrors.UserNotFound())
 		const userValue = user.getValue()
+		
 		const userDto = new UserDto({
 			firstName: userValue.props.firstName,
 			lastName: userValue.props.lastName,
-			email:userValue.props.email
-		
+			email:userValue.props.email		
 		})
 		return Result.ok(userDto)
 	}

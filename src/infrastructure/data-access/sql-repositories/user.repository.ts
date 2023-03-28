@@ -10,48 +10,52 @@ import { UserModel } from './models/user.model'
 
 @Injectable()
 export class UserSqlRepository implements IUserRepository {
-	
-//#region constructor
-	public constructor(private readonly _entityManager: EntityManager, private readonly _mapper: UserSqlMapper,) {}
+
+	//#region constructor
+	public constructor(private readonly _entityManager: EntityManager, private readonly _mapper: UserSqlMapper,) { }
 	//#region private methods
-	
+
 	private async getById(uuid: string) {
 		return this._entityManager.findOne(UserModel, { uuid: uuid, deletedOn: Not(IsNull()) })
 	}
 
 	//#endregion
 	private async getAll() {
-    return this._entityManager.find(UserModel,{})
-  }
+		return this._entityManager.find(UserModel, {})
+	}
 
-  findByUser(_input: string): Promise<Result<User>> {
-    throw new Error('Method not implemented.')
-  }
-	//#endregion
-	
-
+	findByUser(_input: string): Promise<Result<User>> {
+		throw new Error('Method not implemented.')
+	}
 	async save(input: User): Promise<Result<User>> {
-		try{
-		const persistence = this._mapper.toPersistence(input)
-		await this._entityManager.transaction(async (em) => {
-			await em.save(persistence)
-		})
-		return Result.ok(input)
-	}catch(err){
-		return Result.fail(err)
+		try {
+			const persistence = this._mapper.toPersistence(input)
+			await this._entityManager.transaction(async (em) => {
+				await em.save(persistence)
+			})
+			return Result.ok(input)
+		} catch (err) {
+			return Result.fail(err)
+		}
 	}
-	}
-
 
 	exists(input: User): Promise<Result<boolean>> {
 		throw new Error('Method not implemented.')
 	}
-	remove(input: UniqueEntityID): Promise<Result<void>> {
-		throw new Error('Method not implemented.')
+
+
+	async remove(input: User): Promise<Result<User>> {
+		const persistence = this._mapper.toPersistence(input)
+		await this._entityManager.transaction(async (em) => {
+			await em.remove(persistence)
+		})
+		return Result.ok(input)
 	}
 
 
+
 	async findById(input: UniqueEntityID): Promise<Result<User>> {
+		console.log(input);
 		const userEntity = await this.getById(input.toString())
 		if (userEntity) {
 			return Result.ok(this._mapper.toDomain(userEntity))

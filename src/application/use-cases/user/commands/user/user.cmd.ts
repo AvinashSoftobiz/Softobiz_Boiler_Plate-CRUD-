@@ -9,9 +9,11 @@ export class UserCreateCommand implements IRequest<UserCreateResponseType> {
 	@IsOptional()
 	@ApiProperty()
 	public firstName: string
+	
 	@IsOptional()
 	@ApiProperty()
 	public lastName: string
+
 	@IsOptional()
 	@ApiProperty()
 	public email: string

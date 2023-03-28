@@ -8,7 +8,15 @@ import { ApiProperty } from '@nestjs/swagger';
 export class ProductCreateCommand implements IRequest<ProductCreateResponseType> {
 	@IsOptional()
 	@ApiProperty()
-	public name: string
+	public productName: string
+  
+	@IsOptional()
+	@ApiProperty()
+	public companyName: string
+  
+	@IsOptional()
+	@ApiProperty()
+	public description: string
   
 	public constructor(init?: Partial<ProductCreateCommand>) {
 		Object.assign(this, init)

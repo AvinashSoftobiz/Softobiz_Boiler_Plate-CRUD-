@@ -8,13 +8,18 @@ import { GetUserQueryHandler } from './queries/user/user.query.handler';
 import { UpdateUserCommand } from "./commands/updateUser/update-user.cmd";
 import { UpdateUserCommandHandler } from "./commands/updateUser/update-user.cmd.handler";
 
+import { DeleteQuery } from "./queries/delete/delete.query";
+import { DeleteQueryHandler } from "./queries/delete/delete.query.handler";
+
 @Module({
 	imports: [UserSqlRepositoryModule], // use MongoRepositoryModule if using Mongodb
 	controllers: [UserController],
 	providers: [
 		{ provide: UserCreateCommand, useClass: UserCreateCommandHandler },
 		{ provide: GetUserQuery, useClass: GetUserQueryHandler },
-        { provide: UpdateUserCommand, useClass: UpdateUserCommandHandler }
+        { provide: UpdateUserCommand, useClass: UpdateUserCommandHandler },
+       
+        { provide: DeleteQuery, useClass: DeleteQueryHandler }
     ],
 })
 export class UserModule {}

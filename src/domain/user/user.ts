@@ -16,9 +16,18 @@ export class User extends AggregateRoot<UserProps> {
 	//#endregion
 
 	//#region private setters
-	private setName(firstName: string, lastName: string, email:string) {
+	private setfirstName(firstName: string) {
 		this._props.firstName = firstName
+		return Result.ok(this)
+	}
+
+	private setlastName(lastName: string) {
 		this._props.lastName=lastName
+		return Result.ok(this)
+	}
+
+	private setEmail(email:string) {
+		
 		this._props.email=email
 		return Result.ok(this)
 	}
@@ -29,7 +38,9 @@ export class User extends AggregateRoot<UserProps> {
 		const  user = new  User(Object.create(null), id)
 		const validationQueue = [
 			
-			user.setName(props.firstName,props.lastName,props.email),
+			user.setfirstName(props.firstName),
+			user.setlastName(props.firstName),
+			user.setEmail(props.firstName)
 			
 		]
 		const combinedResult = Result.combine(validationQueue)

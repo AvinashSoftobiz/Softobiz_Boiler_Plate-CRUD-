@@ -2,7 +2,7 @@ import { Column,Entity} from 'typeorm';
 import { BaseModel } from './base.model';
 
 
-@Entity({ name: 'Product' })
+@Entity({ name: 'Productss' })
 
 export class ProductModel extends BaseModel {
 
@@ -12,9 +12,15 @@ export class ProductModel extends BaseModel {
 		Object.assign(this, init)
 	}
 	//#endregion
+	
+	@Column()
+	public productName: string
 
 	@Column()
-	public name: string
+	public companyName: string
+
+	@Column()
+	public description: string
 
 }
 
